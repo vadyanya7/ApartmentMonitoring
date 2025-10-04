@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentMonitoring.Application", "ApartmentMonitoring.Application\ApartmentMonitoring.Application.csproj", "{4FE211AD-714E-42FD-B336-5BE6290410C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentMonitoring.Infrastructure", "ApartmentMonitoring.Infrastructure\ApartmentMonitoring.Infrastructure.csproj", "{732F616A-DD70-4301-8A7C-9C191EA9F6C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentMonitoring.Entity", "ApartmentMonitoring.Entity\ApartmentMonitoring.Entity.csproj", "{0D8FB198-F5AE-4411-9084-B0A336DB69A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentMonitoring", "ApartmentMonitoring\ApartmentMonitoring.csproj", "{001C4BE4-7EC6-4F6B-9FB3-760BB4467D02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentMonitoring.Contracts", "ApartmentMonitoring.Contracts\ApartmentMonitoring.Contracts.csproj", "{6C7A1BB2-029C-4771-BB6C-5CED56331E31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "soft.reelly.Parser", "soft.reelly.Parser\soft.reelly.Parser.csproj", "{645CAAE8-8FD6-45DF-8F28-674AD5B3166C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppartmentMonitoring.TelegramParser", "AppartmentMonitoring.TelegramParser\AppartmentMonitoring.TelegramParser.csproj", "{03298DFB-C80C-4B87-A7CD-7CD699F2CB06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5021B316-54EA-4809-9CE5-8E603C84B226}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.txt = ReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{CF4FE4B1-BFD5-4723-9ECC-F535DA2D7594}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FE211AD-714E-42FD-B336-5BE6290410C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FE211AD-714E-42FD-B336-5BE6290410C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FE211AD-714E-42FD-B336-5BE6290410C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FE211AD-714E-42FD-B336-5BE6290410C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732F616A-DD70-4301-8A7C-9C191EA9F6C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732F616A-DD70-4301-8A7C-9C191EA9F6C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732F616A-DD70-4301-8A7C-9C191EA9F6C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732F616A-DD70-4301-8A7C-9C191EA9F6C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8FB198-F5AE-4411-9084-B0A336DB69A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8FB198-F5AE-4411-9084-B0A336DB69A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8FB198-F5AE-4411-9084-B0A336DB69A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8FB198-F5AE-4411-9084-B0A336DB69A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001C4BE4-7EC6-4F6B-9FB3-760BB4467D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001C4BE4-7EC6-4F6B-9FB3-760BB4467D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001C4BE4-7EC6-4F6B-9FB3-760BB4467D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001C4BE4-7EC6-4F6B-9FB3-760BB4467D02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C7A1BB2-029C-4771-BB6C-5CED56331E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C7A1BB2-029C-4771-BB6C-5CED56331E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C7A1BB2-029C-4771-BB6C-5CED56331E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C7A1BB2-029C-4771-BB6C-5CED56331E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645CAAE8-8FD6-45DF-8F28-674AD5B3166C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645CAAE8-8FD6-45DF-8F28-674AD5B3166C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645CAAE8-8FD6-45DF-8F28-674AD5B3166C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645CAAE8-8FD6-45DF-8F28-674AD5B3166C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03298DFB-C80C-4B87-A7CD-7CD699F2CB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03298DFB-C80C-4B87-A7CD-7CD699F2CB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03298DFB-C80C-4B87-A7CD-7CD699F2CB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03298DFB-C80C-4B87-A7CD-7CD699F2CB06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{645CAAE8-8FD6-45DF-8F28-674AD5B3166C} = {CF4FE4B1-BFD5-4723-9ECC-F535DA2D7594}
+		{03298DFB-C80C-4B87-A7CD-7CD699F2CB06} = {CF4FE4B1-BFD5-4723-9ECC-F535DA2D7594}
+	EndGlobalSection
+EndGlobal
