@@ -1,4 +1,8 @@
 
+В appsettings.Development.json нужно добавить подключение к бд 
+DefaultConnection это локальная бд на постгресе.
+SupabaseDb это к supabase подключение.
+
 Перед запуском нужно накатить эти скрипты
 
 создать миграцию
@@ -7,9 +11,7 @@ dotnet ef migrations add InitialCreate --project ApartmentMonitoring.Infrastruct
 обновить базу
 dotnet ef database update --project ApartmentMonitoring.Infrastructure --startup-project ApartmentMonitoring --context DataBaseContext
 
-В appsettings.Development.json нужно добавить подключение к бд 
-DefaultConnection это локальная бд на постгресе.
-SupabaseDb это к supabase подключение.
+Есть ещё скрипт по обновлению классов (сущностей) в Models/Supabase. Его нужно применить  если структура бд Supabase изменилась.
 ___________________________________________
 soft.reelly.Parser
 

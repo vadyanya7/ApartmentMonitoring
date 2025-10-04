@@ -7,7 +7,7 @@ class TelegramGroupParser
 	private static Client _client;
 
 	// Настройки  к доступам. Нужно подставить свои.
-	// ToDO внести в отдельный файл
+	// ToDO вынести в отдельный файл
 	
 	//-----------------------------------
 	private static string _apiHash = "";
