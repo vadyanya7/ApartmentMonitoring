@@ -1,4 +1,5 @@
-﻿using ApartmentMonitoring.Entity.Entities;
+﻿
+using ApartmentMonitoring.Infrastructure;
 
 namespace ApartmentMonitoring.Entity.Repository
 {
@@ -7,9 +8,9 @@ namespace ApartmentMonitoring.Entity.Repository
 		Task<Notification> Add(Notification notification);
 		Task AddRange(List<Notification> notifications);
 
-		Task<List<Notification>> GetNotificationsByUser(long userId);
+		Task<List<Notification>> GetNotificationsByUser(Guid userId);
 
-		Task<List<Notification>> GetPendingsNotifications(long userId);
+		Task<List<Notification>> GetPendingsNotifications(Guid userId);
 
 		Task<int> SaveChangesAsync();
 	}

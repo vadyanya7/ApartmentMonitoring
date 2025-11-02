@@ -36,7 +36,7 @@ namespace ApartmentMonitoring.Infrastructure.SignalR
 
 		private async Task SendPendingNotifications(long userId)
 		{
-			var pendingNotifications = await _notificationRepository.GetPendingsNotifications(userId);
+			var pendingNotifications = await _notificationRepository.GetPendingsNotifications(Guid.NewGuid());
 			if (!pendingNotifications.Any()) return;
 
 			//_logger.LogInformation($"Sending {pendingNotifications.Count} pending notifications to user {userId}");
@@ -47,7 +47,7 @@ namespace ApartmentMonitoring.Infrastructure.SignalR
 				{
 					await Clients.Caller.SendAsync("ReceiveNotification", pendingNotification);
 					pendingNotification.IsRead = true;
-					pendingNotification.SentAt = DateTime.UtcNow;
+					//pendingNotification.SentAt = DateTime.UtcNow;
 				}
 				catch (Exception ex)
 				{

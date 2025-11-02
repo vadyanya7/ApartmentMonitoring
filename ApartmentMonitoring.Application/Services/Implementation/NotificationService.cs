@@ -3,7 +3,9 @@ using ApartmentMonitoring.Application.Services.Interfaces;
 using ApartmentMonitoring.Contracts.Notifications;
 using ApartmentMonitoring.Entity.Entities;
 using ApartmentMonitoring.Entity.Repository;
+using ApartmentMonitoring.Infrastructure;
 using System.Text.Json;
+using Notification = ApartmentMonitoring.Infrastructure.Notification;
 
 namespace ApartmentMonitoring.Application.Services.Implementation
 {
@@ -34,18 +36,18 @@ namespace ApartmentMonitoring.Application.Services.Implementation
 
 		public async Task<List<NotificationDto>> GetNotificationsByUser(long userId)
 		{
-			var result = await _notificationRepo.GetNotificationsByUser(userId);
+			var result = await _notificationRepo.GetNotificationsByUser(Guid.Parse(userId.ToString()));
 			if (result == null)
 			{
 				throw new Exception("Not Found!");
 			}
-			return result.Select(x=>x.ToDto()).ToList();
+			return result.Select(x => x.ToDto()).ToList();
 		}
 
 		public async Task SendNotificationsForNewApartmentsAsync()
 		{
 			var minutes = -1;
-			var newApartments = await _apartmentRepository.GetApartmentsCreatedAfterAsync(DateTime.UtcNow.AddMinutes(minutes));
+			var newApartments = await _apartmentRepository.GetListingsCreatedAfterAsync(DateTime.UtcNow.AddMinutes(minutes));
 			if (!newApartments.Any()) return;
 
 			var users = await _userRepository.GetAllWithSubscriptionsAsync();
@@ -56,18 +58,18 @@ namespace ApartmentMonitoring.Application.Services.Implementation
 			}
 
 		}
-		private async Task NotifyMatchingUsers(Apartment apartment)
+		private async Task NotifyMatchingUsers(Listing apartment)
 		{
 			var subscriptions = await _subscriptionRepository.GetSubscriptionsByApartment(apartment);
 
 			if (!subscriptions.Any()) return;
 
-			var userIds = subscriptions.Select(s => s.User.Id).Distinct().ToList();
+			var userIds = Enumerable.Empty<int>().ToList(); //subscriptions.Select(s => s.User.Id).Distinct().ToList();
 			var onlineUserIds = _userConnectionTracker.GetOnlineUserIds();
 
-			var offlineUserIds = userIds.Except(onlineUserIds).ToList();
+			var offlineUserIds = Enumerable.Empty<int>().ToList();//userIds.Except(onlineUserIds).ToList();
 
-			var msg = $"New apartment: {apartment.Address}, {apartment.Price}$, {apartment.Floor}";
+			var msg = $"New apartment: {apartment.ProjectName}, {apartment.Price}$, {apartment.Floor}";
 
 			// Отправляем онлайн пользователям
 			foreach (var connection in onlineUserIds)
@@ -80,15 +82,15 @@ namespace ApartmentMonitoring.Application.Services.Implementation
 				{
 					//_logger.LogWarning(ex, $"Failed to send notification to connection {connection.ConnectionId}");
 					// Если не удалось отправить, добавляем в очередь
-					offlineUserIds.Add(connection);
+					offlineUserIds.Add((int)connection);
 				}
 			}
 
 			// Сохраняем для офлайн пользователей
 			var pendingNotifications = offlineUserIds.Select(userId => new Notification
 			{
-				UserId = userId,
-				Message = msg
+				UserId = new Guid(),//userId,
+									//	Message = msg
 			}).ToList();
 
 			if (pendingNotifications.Any())

@@ -2,42 +2,43 @@
 using ApartmentMonitoring.Infrastructure.Context;
 using ApartmentMonitoring.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using ApartmentMonitoring.Infrastructure.DbContexts;
 
 namespace ApartmentMonitoring.Infrastructure.Repository
 {
 	public class ApartmentRepository : RepositoryBase, IApartmentRepository
 	{
-		public ApartmentRepository(DataBaseContext dbContext) : base(dbContext)
+		public ApartmentRepository(SupabaseContext dbContext) : base(dbContext)
 		{
 		}
 
-		public async Task<Apartment> Add(Apartment apartment)
+		public async Task<Listing> Add(Listing listing)
 		{
-			apartment.Source = Entity.Enums.Source.Our;
-			await dbContext.AddAsync(apartment);
+			//apartment.Source = Entity.Enums.Source.Our;
+			await dbContext.AddAsync(listing);
 			await SaveChangesAsync();
-			return apartment;
+			return listing;
 		}
 
-		public async Task Remove(long id)
+		public async Task Remove(Guid id)
 		{
-			var entity = await GetApartment(id);
+			var entity = await GetListing(id);
 			if (entity != null)
 			{
 				dbContext.Remove(entity);
 			}
 		}
 
-		public async Task<List<Apartment>> GetAllApartments()
+		public async Task<List<Listing>> GetAllListings()
 		{
-			return await dbContext.Apartments
+			return await dbContext.Listings
 				.Include(x=>x.User)
 				.ToListAsync();
 		}
 
-		public async Task<List<Apartment>> GetApartmentsByUser(long userId)
+		public async Task<List<Listing>> GetListingsByUser(Guid userId)
 		{
-			var result = await dbContext.Apartments
+			var result = await dbContext.Listings
 				.Include(x => x.User)
 				.Where(x => x.User.Id == userId)
 				.ToListAsync();
@@ -45,50 +46,43 @@ namespace ApartmentMonitoring.Infrastructure.Repository
 			return result;
 		}
 
-		public async Task<Apartment> GetApartment(long attachmentId)
+		public async Task<Listing> GetListing(Guid listingId)
 		{
-			return await dbContext.Apartments.FirstOrDefaultAsync(x => x.Id == attachmentId);
+			return await dbContext.Listings.FirstOrDefaultAsync(x => x.Id == listingId);
 		}
 
-		public Task RemoveApartment(long userId, Apartment apartment)
+		public async Task<Listing> Update(Listing listing)
 		{
-			dbContext.Remove(apartment);
-
-			return Task.CompletedTask;
-		}
-
-		public async Task<Apartment> Update(Apartment apartment)
-		{
-			dbContext.Update(apartment);
+			dbContext.Update(listing);
 			await SaveChangesAsync();
 
-			return  apartment;
+			return  listing;
 		}
 
-		public async Task<List<Apartment>> GetApartmentsByFilter(ApartmentMonitoring.Entity.Entities.Subscription subscription, long? lastId, int count)
+		public async Task<List<Listing>> GetListingsByFilter(Subscription subscription, Guid? lastId, int count)
 		{
-			var query = dbContext.Apartments.AsQueryable();
+			var query = dbContext.Listings.AsQueryable();
 
-			if (subscription.MinPrice.HasValue)
-				query = query.Where(a => a.Price >= subscription.MinPrice.Value);
+			//if (subscription.MinPrice.HasValue)
+			//	query = query.Where(a => a.Price >= subscription.MinPrice.Value);
 
-			if (subscription.MaxPrice.HasValue)
-				query = query.Where(a => a.Price <= subscription.MaxPrice.Value);
+			//if (subscription.MaxPrice.HasValue)
+			//	query = query.Where(a => a.Price <= subscription.MaxPrice.Value);
 
-			if (subscription.MinSize.HasValue)
-				query = query.Where(a => a.Square >= subscription.MinSize);
+			//if (subscription.MinSize.HasValue)
+			//	query = query.Where(a => a.Square >= subscription.MinSize);
 
-			if (subscription.MaxSize.HasValue)
-				query = query.Where(a => a.Square <= subscription.MaxSize);
+			//if (subscription.MaxSize.HasValue)
+			//	query = query.Where(a => a.Square <= subscription.MaxSize);
 
-			if (subscription.Floor > 0)
-				query = query.Where(a => a.Floor == subscription.Floor);
+			//if (subscription.Floor > 0)
+			//	query = query.Where(a => a.Floor == subscription.Floor);
 
-			if (!string.IsNullOrWhiteSpace(subscription.District))
-				query = query.Where(a => a.District.ToLower().Contains(subscription.District.ToLower()));	  // херово и просто
+			//if (!string.IsNullOrWhiteSpace(subscription.District))
+			//	query = query.Where(a => a.District.ToLower().Contains(subscription.District.ToLower()));	  // херово и просто
 
-			if (subscription.Rooms > 0)
-				query = query.Where(a => a.Rooms == subscription.Rooms);
+			//if (subscription.Rooms > 0)
+			//	query = query.Where(a => a.Rooms == subscription.Rooms);
 
 			return await query
 					.Where(a => !lastId.HasValue || a.Id > lastId.Value)
@@ -97,10 +91,10 @@ namespace ApartmentMonitoring.Infrastructure.Repository
 					.ToListAsync();
 		}
 
-		public Task<List<Apartment>> GetApartmentsCreatedAfterAsync(DateTime timestamp)
+		public Task<List<Listing>> GetListingsCreatedAfterAsync(DateTime timestamp)
 		{
-			return dbContext.Apartments
-					.Where(a => a.CreatedAt > timestamp)
+			return dbContext.Listings
+				//	.Where(a => a.CreatedAt > timestamp)
 					.ToListAsync();
 		}
 	}

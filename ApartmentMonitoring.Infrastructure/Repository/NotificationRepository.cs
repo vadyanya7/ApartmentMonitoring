@@ -1,5 +1,6 @@
 ﻿using ApartmentMonitoring.Entity.Repository;
 using ApartmentMonitoring.Infrastructure.Context;
+using ApartmentMonitoring.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Notification = ApartmentMonitoring.Entity.Entities.Notification;
 
@@ -7,24 +8,24 @@ namespace ApartmentMonitoring.Infrastructure.Repository
 {
 	public class NotificationRepository : RepositoryBase, INotificationRepository
 	{
-		public NotificationRepository(DataBaseContext dbContext) : base(dbContext)
+		public NotificationRepository(SupabaseContext dbContext) : base(dbContext)
 		{
 		}
 
-		public async Task<ApartmentMonitoring.Entity.Entities.Notification> Add(ApartmentMonitoring.Entity.Entities.Notification notification)
+		public async Task<Notification> Add(Notification notification)
 		{
 			await dbContext.AddAsync(notification);
 
 			return notification;
 		}
 
-		public async Task AddRange(List<ApartmentMonitoring.Entity.Entities.Notification> notifications)
+		public async Task AddRange(List<Notification> notifications)
 		{
 			await dbContext.AddRangeAsync(notifications);
 			await SaveChangesAsync();
 		}
 
-		public async Task<List<ApartmentMonitoring.Entity.Entities.Notification>> GetNotificationsByUser(long userId)
+		public async Task<List<Notification>> GetNotificationsByUser(Guid userId)
 		{
 			var notifications = await dbContext.Notifications
 				.Where(x=> x.UserId == userId)
@@ -33,7 +34,7 @@ namespace ApartmentMonitoring.Infrastructure.Repository
 			return notifications;
 		}
 
-		public async Task<List<ApartmentMonitoring.Entity.Entities.Notification>> GetPendingsNotifications(long userId)
+		public async Task<List<Notification>> GetPendingsNotifications(Guid userId)
 		{
 			var pendingNotifications = await dbContext.Notifications
 				.Where(p => p.UserId == userId && !p.IsRead)

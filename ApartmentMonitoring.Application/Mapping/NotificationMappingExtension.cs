@@ -1,11 +1,5 @@
-﻿using ApartmentMonitoring.Contracts.Apartments;
-using ApartmentMonitoring.Contracts.Notifications;
-using ApartmentMonitoring.Entity.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApartmentMonitoring.Contracts.Notifications;
+using ApartmentMonitoring.Infrastructure;
 
 namespace ApartmentMonitoring.Application.Mapping
 {
@@ -18,8 +12,8 @@ namespace ApartmentMonitoring.Application.Mapping
 				NotificationId=entity.Id,
 				UserId = entity.UserId,
 				CreatedAt = entity.CreatedAt,
-				Message = entity.Message,
-				Title = entity.Title,
+				Message = entity.Text,
+				Title = entity.Type,
 			};
 		}
 	}

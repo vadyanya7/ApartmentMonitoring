@@ -22,34 +22,34 @@ namespace ApartmentMonitoring.Extension
 			services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 			services.AddScoped<IMailSender, MailSender>();
 
-			services.AddTransient<IUserRepository, UserRepository>();
-			services.AddTransient<IApartmentRepository, ApartmentRepository>();
-			services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
-			services.AddTransient<INotificationRepository, NotificationRepository>();
-			services.AddTransient<IUserActivityRepository, UserActivityRepository>();
-			services.AddTransient<IBannerRepository, BannerRepository>();
-			services.AddTransient<IChatMessageRepository, ChatMessageRepository>();
-			services.AddTransient<IChatRepository, ChatRepository>();
+			services.AddTransient<IUserRepository, UserRepository>();	 //
+			services.AddTransient<IApartmentRepository, ApartmentRepository>();		//
+			services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();	  //
+			services.AddTransient<INotificationRepository, NotificationRepository>();	//
+			//services.AddTransient<IUserActivityRepository, UserActivityRepository>();
+			//services.AddTransient<IBannerRepository, BannerRepository>();
+			//services.AddTransient<IChatMessageRepository, ChatMessageRepository>();
+			//services.AddTransient<IChatRepository, ChatRepository>();
 
 			services.AddSingleton<IUserConnectionTracker, UserConnectionTracker>();
 			services.AddTransient<IHubNotifier, HubNotifier>();
 
-			services.AddTransient<IUserService, UserService>();
-			services.AddTransient<IApartmentService, ApartmentService>();
-			services.AddTransient<ISubscriptionService, SubscriptionService>();
+			//services.AddTransient<IUserService, UserService>();
+			//services.AddTransient<IApartmentService, ApartmentService>();
+			//services.AddTransient<ISubscriptionService, SubscriptionService>();
 			services.AddTransient<INotificationService, NotificationService>();
-			services.AddTransient<IUserActivityTrackerService, UserActivityTrackerService>();
-			services.AddTransient<IAdminService, AdminService>();
-			services.AddTransient<ChatService>();
+			//services.AddTransient<IUserActivityTrackerService, UserActivityTrackerService>();
+			//services.AddTransient<IAdminService, AdminService>();
+			//services.AddTransient<ChatService>();
 
 			return services;
 		}
 
 		public static IServiceCollection ConfigureDbSettings(this IServiceCollection services, IConfiguration configuration)
 		{
-			var connection = configuration.GetConnectionString("DefaultConnection");
-			services.AddDbContext<DataBaseContext>(options =>
-				options.UseNpgsql(connection));
+			//var connection = configuration.GetConnectionString("DefaultConnection");
+			//services.AddDbContext<DataBaseContext>(options =>
+			//	options.UseNpgsql(connection));
 
 			services.AddDbContext<SupabaseContext>(options =>
 				options.UseNpgsql(configuration.GetConnectionString("SupabaseDb")));

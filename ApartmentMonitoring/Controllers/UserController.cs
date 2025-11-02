@@ -6,6 +6,7 @@ using ApartmentMonitoring.Contracts.User.Register;
 using ApartmentMonitoring.Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApartmentMonitoring.Controllers
 {
@@ -14,9 +15,13 @@ namespace ApartmentMonitoring.Controllers
 	public class UserController : ControllerBase
 	{
 		private readonly IUserService userService;
-		public UserController(IUserService userService, SupabaseContext supabaseContext)
+		private readonly SupabaseContext supabaseContext;
+		public UserController(
+		//	IUserService userService, 
+			SupabaseContext supabaseContext)
 		{
-			this.userService = userService;
+			//this.userService = userService;
+			this.supabaseContext = supabaseContext;
 		}
 
 		[HttpPost]
@@ -77,10 +82,10 @@ namespace ApartmentMonitoring.Controllers
 
 		[HttpDelete]
 		[Route("Logout")]
-		public async Task<IActionResult> Logout(string login)
+		public async Task<IActionResult> Logout()
 		{
-
-			return Ok();
+			var Listings =  await supabaseContext.Listings.ToListAsync();
+			return Ok(Listings);
 		}
 
 
